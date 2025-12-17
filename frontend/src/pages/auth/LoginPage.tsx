@@ -88,12 +88,14 @@ export default function LoginPage() {
                                 await login(undefined, undefined, credentialResponse.credential);
                                 navigate('/');
                             }
-                        } catch (err) {
-                            setError('Google Login Failed');
+                        } catch (err: any) {
+                            const errorMsg = err.response?.data?.error || 'Google Login Failed';
+                            setError(errorMsg);
+                            console.error("Google Login Detail:", err.response?.data);
                         }
                     }}
                     onError={() => {
-                        setError('Google Login Failed');
+                        setError('Google Login failed to initialize');
                     }}
                     useOneTap
                 />

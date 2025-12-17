@@ -21,9 +21,11 @@ class GoogleAuthView(APIView):
 
         try:
             # Verify the token with Google
-            # We need the Client ID here.
             client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+            print(f"Verifying Google token with Client ID: {client_id[:10]}...")
+            
             idinfo = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+            print(f"Token verified for email: {idinfo.get('email')}")
 
             # Get user info'
             email = idinfo['email']
@@ -34,11 +36,13 @@ class GoogleAuthView(APIView):
             # Check if user exists, or create
             try:
                 user = User.objects.get(email=email)
+                print(f"Found existing user: {user.username}")
                 # Update existing user info if empty
                 if not user.first_name: user.first_name = first_name
                 if not user.last_name: user.last_name = last_name
                 user.save()
             except User.DoesNotExist:
+                print(f"Creating new user for {email}")
                 # Create user
                 username = email.split('@')[0]
                 # Ensure username is unique
@@ -59,8 +63,8 @@ class GoogleAuthView(APIView):
             if picture and not user.avatar:
                 try:
                     from django.core.files.base import ContentFile
-                    import requests
-                    response = requests.get(picture)
+                    import requests as http_requests
+                    response = http_requests.get(picture)
                     if response.status_code == 200:
                         file_name = f"{user.username}_avatar.jpg"
                         user.avatar.save(file_name, ContentFile(response.content), save=True)
@@ -69,6 +73,7 @@ class GoogleAuthView(APIView):
 
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
+            print("JWT tokens generated successfully")
             
             return Response({
                 'access': str(refresh.access_token),
@@ -81,6 +86,8 @@ class GoogleAuthView(APIView):
             })
 
         except ValueError as e:
+            print(f"Invalid token error: {str(e)}")
             return Response({'error': f'Invalid token: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
+            print(f"Google auth unexpected error: {str(e)}")
             return Response({'error': f'Authentication failed: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
