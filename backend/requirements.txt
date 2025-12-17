@@ -1,0 +1,16 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+django-filter
+django-oauth-toolkit
+social-auth-app-django
+drf-social-oauth2
+python-dotenv
+google-generativeai
+requests
+pillow
+psycopg2-binary
+dj-database-url
+gunicorn
+whitenoise
