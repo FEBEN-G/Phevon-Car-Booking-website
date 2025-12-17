@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
+
+@theme {
+  --color-primary: #FF6B35;
+  --color-primary-hover: #E55A2B;
+  --color-primary-light: #FF8559;
+  --color-dark: #2D2D2D;
+  --color-dark-light: #3D3D3D;
+  --color-gray-light: #F5F5F7;
+  
+  --font-sans: Inter, sans-serif;
+  --font-mono: JetBrains Mono, monospace;
+  --font-display: "Playfair Display", serif;
+  --font-signature: "Great Vibes", cursive;
+
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes shimmer {
+    from { background-position: 0 0; }
+    to { background-position: -200% 0; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-signature {
+  font-family: var(--font-signature);
+}
