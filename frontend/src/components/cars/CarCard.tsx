@@ -1,14 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import type { Car } from '../../types/car';
 import { Users, Fuel, Settings } from 'lucide-react';
-import { Button } from '../ui/Button';
 
 interface CarCardProps {
   car: Car;
 }
 
 export default function CarCard({ car }: CarCardProps) {
-  const navigate = useNavigate();
 
   return (
     <Link to={`/cars/${car.id}`} className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
