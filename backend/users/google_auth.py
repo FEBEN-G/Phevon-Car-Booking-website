@@ -29,10 +29,15 @@ class GoogleAuthView(APIView):
             email = idinfo['email']
             first_name = idinfo.get('given_name', '')
             last_name = idinfo.get('family_name', '')
+            picture = idinfo.get('picture', '')
             
             # Check if user exists, or create
             try:
                 user = User.objects.get(email=email)
+                # Update existing user info if empty
+                if not user.first_name: user.first_name = first_name
+                if not user.last_name: user.last_name = last_name
+                user.save()
             except User.DoesNotExist:
                 # Create user
                 username = email.split('@')[0]
@@ -49,6 +54,18 @@ class GoogleAuthView(APIView):
                 )
                 user.set_unusable_password()
                 user.save()
+
+            # Handle avatar if available and user doesn't have one
+            if picture and not user.avatar:
+                try:
+                    from django.core.files.base import ContentFile
+                    import requests
+                    response = requests.get(picture)
+                    if response.status_code == 200:
+                        file_name = f"{user.username}_avatar.jpg"
+                        user.avatar.save(file_name, ContentFile(response.content), save=True)
+                except Exception as e:
+                    print(f"Failed to save Google avatar: {e}")
 
             # Generate JWT tokens
             refresh = RefreshToken.for_user(user)
