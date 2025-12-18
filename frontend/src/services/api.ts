@@ -1,6 +1,22 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api/` : 'http://localhost:8000/api/';
+const getBaseURL = () => {
+    const rawUrl = import.meta.env.VITE_API_URL;
+    if (!rawUrl) return 'http://localhost:8000/api/';
+    
+    // Remove trailing slash if present to avoid doubles
+    const cleanUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
+    
+    // If user already included /api in the env var, don't add it again
+    if (cleanUrl.endsWith('/api')) {
+        return `${cleanUrl}/`;
+    }
+    
+    return `${cleanUrl}/api/`;
+};
+
+const API_URL = getBaseURL();
+console.log('[API] Base URL initialized as:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,

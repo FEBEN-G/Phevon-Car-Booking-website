@@ -41,13 +41,15 @@ export default function ProfilePage() {
       
       setUploading(true);
       try {
-        await api.patch('auth/me/', formData, {
+        const response = await api.patch('auth/me/', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
+        console.log("Upload success:", response.data);
         window.location.reload(); 
-      } catch (error) {
-        console.error("Failed to upload image", error);
-        alert("Failed to upload image. Please try again.");
+      } catch (error: any) {
+        console.error("Failed to upload image. URL called:", `${api.defaults.baseURL}auth/me/`);
+        console.error("Error details:", error.response || error);
+        alert(`Failed to upload image (Status: ${error.response?.status}). Please check the console for details.`);
       } finally {
         setUploading(false);
       }
@@ -58,10 +60,11 @@ export default function ProfilePage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.patch('auth/me/', formData);
+      const response = await api.patch('auth/me/', formData);
+      console.log("Profile update success:", response.data);
       window.location.reload(); 
-    } catch (error) {
-      console.error("Failed to update profile", error);
+    } catch (error: any) {
+      console.error("Failed to update profile. Details:", error.response || error);
       alert("Failed to update profile. Please try again.");
     } finally {
       setLoading(false);
