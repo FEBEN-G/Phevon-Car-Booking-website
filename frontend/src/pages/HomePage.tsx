@@ -39,33 +39,33 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative h-[500px] bg-dark overflow-hidden">
+      <div className="relative min-h-[500px] md:h-[600px] bg-dark overflow-hidden pt-20">
         {/* Abstract Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-             <div className="absolute inset-0 opacity-30 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80')] bg-cover bg-center"></div>
-             <div className="absolute inset-0 bg-black/50"></div>
+             <div className="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80')] bg-cover bg-center"></div>
+             <div className="absolute inset-0 bg-black/60 md:bg-black/50"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 h-full flex items-center">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center py-12 md:py-0">
           <div className="max-w-2xl text-white">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20 animate-fade-in-up">
                 <Sparkles size={16} className="text-yellow-400" />
-                <span className="text-sm font-medium">Premium Car Rental Service</span>
+                <span className="text-xs md:text-sm font-medium">Premium Car Rental Service</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-display font-black mb-6 leading-tight animate-fade-in-up delay-100">
+            <h1 className="text-4xl md:text-7xl font-display font-black mb-6 leading-[1.1] animate-fade-in-up delay-100">
               Drive Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Dream Car</span> Today
             </h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
+            <p className="text-base md:text-xl text-gray-300 mb-8 leading-relaxed max-w-lg animate-fade-in-up delay-200">
               Experience the customized thrill of the road with our premium fleet. From luxury sedans to rugged SUVs, we have the perfect ride for your journey.
             </p>
-            <div className="flex gap-4 animate-fade-in-up delay-300">
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
               {!isAuthenticated ? (
                 <Button 
                     onClick={() => navigate('/cars')}
-                    className="h-14 px-8 text-lg rounded-full shadow-lg shadow-primary/30 relative overflow-hidden group"
+                    className="h-12 md:h-14 px-8 text-lg rounded-full shadow-lg shadow-primary/30 relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:animate-shimmer" />
-                  <span className="relative flex items-center">
+                  <span className="relative flex items-center justify-center">
                     Get Started <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </Button>
@@ -75,7 +75,7 @@ export default function HomePage() {
                         const element = document.getElementById('car-grid');
                         element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="h-14 px-8 text-lg rounded-full"
+                    className="h-12 md:h-14 px-8 text-lg rounded-full"
                 >
                   Browse Cars
                 </Button>
@@ -87,9 +87,9 @@ export default function HomePage() {
 
       {/* Trust Indicators */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="flex items-center gap-4 p-4 md:p-0 rounded-2xl md:rounded-none bg-gray-50 md:bg-transparent">
+                <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 shrink-0">
                     <Shield size={24} />
                 </div>
                 <div>
@@ -97,8 +97,8 @@ export default function HomePage() {
                     <p className="text-sm text-gray-500">100% secure checkout with Chapa</p>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600">
+            <div className="flex items-center gap-4 p-4 md:p-0 rounded-2xl md:rounded-none bg-gray-50 md:bg-transparent">
+                <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600 shrink-0">
                     <Zap size={24} />
                 </div>
                 <div>
@@ -106,8 +106,8 @@ export default function HomePage() {
                     <p className="text-sm text-gray-500">Book and confirm in minutes</p>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-600">
+            <div className="flex items-center gap-4 p-4 md:p-0 rounded-2xl md:rounded-none bg-gray-50 md:bg-transparent">
+                <div className="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-600 shrink-0">
                     <Sparkles size={24} />
                 </div>
                 <div>

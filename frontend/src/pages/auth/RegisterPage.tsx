@@ -48,8 +48,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 md:p-6 pt-24 md:pt-20">
+      <div className="max-w-md w-full bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 animate-fade-in">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
           <p className="text-gray-500 mt-2">Join Phevon for premium experiences</p>

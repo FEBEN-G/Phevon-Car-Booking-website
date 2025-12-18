@@ -72,22 +72,22 @@ export default function ProfilePage() {
   if (!user) return <div className="pt-32 text-center">Please log in to view your profile.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-20 px-6">
+    <div className="min-h-screen bg-gray-50 pt-24 md:pt-32 pb-20 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8">
-          <div className="bg-primary/10 h-32 md:h-48 relative">
-            <div className="absolute -bottom-16 left-8 md:left-12">
-              <div className="relative group w-32 h-32 md:w-40 md:h-40 bg-white rounded-full p-2 shadow-lg">
-                <div className="w-full h-full bg-primary/20 rounded-full flex items-center justify-center text-primary overflow-hidden relative">
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8 border border-gray-100">
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 h-32 md:h-48 relative">
+            <div className="absolute -bottom-12 md:-bottom-16 left-1/2 -translate-x-1/2 md:left-12 md:translate-x-0">
+              <div className="relative group w-28 h-28 md:w-40 md:h-40 bg-white rounded-full p-1.5 md:p-2 shadow-2xl">
+                <div className="w-full h-full bg-gray-100 rounded-full flex items-center justify-center text-primary overflow-hidden relative">
                     {user.avatar ? (
                         <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
                     ) : (
-                        <User size={64} />
+                        <User size={48} className="md:w-16 md:h-16" />
                     )}
                     
                     {/* Upload Overlay */}
-                    <label className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                    <label className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer">
                         <Input 
                             type="file" 
                             accept="image/*" 
@@ -95,27 +95,34 @@ export default function ProfilePage() {
                             onChange={handleImageChange}
                             disabled={uploading}
                         />
-                        <span className="text-white text-xs font-medium px-2 py-1 bg-black/20 rounded-full">
-                            {uploading ? 'Uploading...' : 'Change Photo'}
-                        </span>
+                        <div className="flex flex-col items-center gap-1">
+                            <Edit2 size={16} className="text-white" />
+                            <span className="text-white text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                                {uploading ? '...' : 'Edit'}
+                            </span>
+                        </div>
                     </label>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="pt-20 pb-8 px-8 md:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="pt-16 md:pt-20 pb-8 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center md:items-center gap-6 text-center md:text-left">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">{user.username}</h1>
-              <p className="text-gray-500 flex items-center gap-2 mt-1">
-                <Mail size={14} /> {user.email}
+              <h1 className="text-2xl md:text-3xl font-black text-gray-900">{user.username}</h1>
+              <p className="text-gray-500 flex items-center justify-center md:justify-start gap-2 mt-1 font-medium">
+                <Mail size={14} className="text-primary" /> {user.email}
               </p>
             </div>
             
-            {!isEditing && (
-                <Button onClick={() => setIsEditing(true)} variant="outline" className="flex items-center gap-2">
+            {!isEditing ? (
+                <Button onClick={() => setIsEditing(true)} variant="outline" className="flex items-center gap-2 rounded-full px-8 border-gray-200">
                     <Edit2 size={16} /> Edit Profile
                 </Button>
+            ) : (
+                <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-gray-600 p-2">
+                    <X size={24} />
+                </button>
             )}
           </div>
         </div>
@@ -124,88 +131,85 @@ export default function ProfilePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Sidebar Stats/Info */}
             <div className="space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                        <Shield className="text-primary" size={18} /> Account Status
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2 uppercase text-xs tracking-widest">
+                        <Shield className="text-primary" size={16} /> Account Security
                     </h3>
-                    <div className="space-y-3">
-                        <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Member Since</span>
-                            <span className="font-medium">Dec 2024</span>
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                            <span className="text-gray-500 text-sm">Status</span>
+                            <span className="text-green-600 font-bold bg-green-50 px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">Verified</span>
                         </div>
-                        <div className="flex justify-between text-sm">
-                            <span className="text-gray-500">Verification</span>
-                            <span className="text-green-600 font-medium bg-green-50 px-2 py-0.5 rounded-full text-xs">Verified</span>
+                        <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                            <span className="text-gray-500 text-sm">Auth</span>
+                            <span className="text-gray-900 font-bold text-xs">Standard / Google</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Main Form/Details */}
-            <div className="md:col-span-2 space-y-6">
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-xl font-bold text-gray-900">Personal Information</h2>
-                        {isEditing && (
-                            <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-gray-600">
-                                <X size={20} />
-                            </button>
-                        )}
-                    </div>
+            <div className="md:col-span-2">
+                <div className="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-gray-100">
+                    <h2 className="text-xl font-bold text-gray-900 mb-6 font-display">Personal Details</h2>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="sm:col-span-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Username</label>
                                 <Input 
                                     disabled={!isEditing} 
                                     value={formData.username}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, username: e.target.value})}
+                                    className="bg-gray-50/50 border-gray-100 rounded-xl"
                                 />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <div className="sm:col-span-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Email Address</label>
                                 <Input 
                                     disabled={true}
                                     value={formData.email}
-                                    className="bg-gray-50 cursor-not-allowed"
+                                    className="bg-gray-100/50 cursor-not-allowed border-gray-100 rounded-xl text-gray-400"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">First Name</label>
                                 <Input 
                                     disabled={!isEditing} 
                                     placeholder="Not set"
                                     value={formData.first_name}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, first_name: e.target.value})}
+                                    className="bg-gray-50/50 border-gray-100 rounded-xl"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Last Name</label>
                                 <Input 
                                     disabled={!isEditing} 
                                     placeholder="Not set"
                                     value={formData.last_name}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, last_name: e.target.value})}
+                                    className="bg-gray-50/50 border-gray-100 rounded-xl"
                                 />
                             </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                            <div className="sm:col-span-2">
+                                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Phone Number</label>
                                 <Input 
                                     disabled={!isEditing} 
                                     placeholder="Add phone number"
                                     value={formData.phone}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, phone: e.target.value})}
+                                    className="bg-gray-50/50 border-gray-100 rounded-xl"
                                 />
                             </div>
                         </div>
 
                         {isEditing && (
-                            <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
-                                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
+                            <div className="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-gray-100">
+                                <Button type="button" variant="outline" onClick={() => setIsEditing(false)} className="sm:w-32 rounded-xl">
                                     Cancel
                                 </Button>
-                                <Button type="submit" disabled={loading}>
+                                <Button type="submit" disabled={loading} className="sm:w-48 rounded-xl shadow-lg shadow-primary/20">
                                     {loading ? 'Saving...' : 'Save Changes'}
                                 </Button>
                             </div>
