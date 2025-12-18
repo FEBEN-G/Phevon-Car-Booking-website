@@ -7,7 +7,7 @@ export interface PaymentInitiateResponse {
 
 export const paymentService = {
   initiatePayment: async (bookingId: number, provider: 'CHAPA' | 'PAYPAL' = 'CHAPA') => {
-    const response = await api.post<PaymentInitiateResponse>('/payments/initiate/', {
+    const response = await api.post<PaymentInitiateResponse>('payments/initiate/', {
       booking_id: bookingId,
       provider
     });
@@ -15,7 +15,7 @@ export const paymentService = {
   },
 
   verifyChapaPayment: async (txRef: string) => {
-    const response = await api.get(`/payments/chapa/verify/${txRef}/`);
+    const response = await api.get(`payments/chapa/verify/${txRef}/`);
     return response.data;
   }
 };

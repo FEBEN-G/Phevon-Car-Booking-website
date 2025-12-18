@@ -21,7 +21,7 @@ export default function ContactPage() {
     setError('');
 
     try {
-        await api.post('/auth/contact/', formData);
+        await api.post('auth/contact/', formData);
         setSuccess(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (err) {

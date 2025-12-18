@@ -9,7 +9,7 @@ export interface ChatMessage {
 
 export const chatService = {
   sendMessage: async (message: string, sessionId?: string) => {
-    const response = await api.post<ChatMessage>('/chat/', {
+    const response = await api.post<ChatMessage>('chatbot/', {
       message,
       session_id: sessionId
     });
@@ -17,7 +17,7 @@ export const chatService = {
   },
 
   getChatHistory: async () => {
-    const response = await api.get<ChatMessage[]>('/chat/history/');
+    const response = await api.get<ChatMessage[]>('chatbot/history/');
     return response.data;
   }
 };

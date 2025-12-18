@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       try {
-        const response = await api.get('/auth/me/');
+        const response = await api.get('auth/me/');
         setUser(response.data);
       } catch (error) {
         console.error("Auth check failed:", error);
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email?: string, password?: string, googleToken?: string) => {
     // Standard login
     if (email && password) {
-        const response = await api.post<AuthResponse>('/auth/login/', { 
+        const response = await api.post<AuthResponse>('auth/login/', { 
             username: email, 
             password 
         });
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Google Login
     else if (googleToken) {
         try {
-            const response = await api.post<AuthResponse>('/auth/google/', { 
+            const response = await api.post<AuthResponse>('auth/google/', { 
                 token: googleToken 
             });
             const { access, refresh } = response.data;
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const register = async (username?: string, email?: string, password?: string, phone?: string) => {
     const data = { username, email, password, phone };
-    await api.post('/auth/register/', data);
+    await api.post('auth/register/', data);
     // No auto-login because activation is required
   };
 

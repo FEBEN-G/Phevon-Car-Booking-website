@@ -41,7 +41,7 @@ export default function ProfilePage() {
       
       setUploading(true);
       try {
-        await api.patch('/auth/me/', formData, {
+        await api.patch('auth/me/', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
         window.location.reload(); 
@@ -58,7 +58,7 @@ export default function ProfilePage() {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.patch('/auth/me/', formData);
+      await api.patch('auth/me/', formData);
       window.location.reload(); 
     } catch (error) {
       console.error("Failed to update profile", error);

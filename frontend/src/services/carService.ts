@@ -12,17 +12,17 @@ export const carService = {
       if (filters.seats) params.append('seats__gte', filters.seats.toString());
       if (filters.location) params.append('location__city', filters.location);
     }
-    const response = await api.get<Car[]>(`/cars/?${params.toString()}`);
+    const response = await api.get<Car[]>(`cars/?${params.toString()}`);
     return response.data;
   },
 
   getCar: async (id: number) => {
-    const response = await api.get<Car>(`/cars/${id}/`);
+    const response = await api.get<Car>(`cars/${id}/`);
     return response.data;
   },
   
   getLocations: async () => {
-      const response = await api.get<Location[]>('/locations/');
+      const response = await api.get<Location[]>('locations/');
       return response.data;
   }
 };

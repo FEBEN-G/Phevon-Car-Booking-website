@@ -18,12 +18,12 @@ export interface CreateBookingData {
 
 export const bookingService = {
   createBooking: async (data: CreateBookingData) => {
-    const response = await api.post<Booking>('/bookings/', data);
+    const response = await api.post<Booking>('bookings/', data);
     return response.data;
   },
 
   getMyBookings: async () => {
-    const response = await api.get<Booking[]>('/bookings/');
+    const response = await api.get<Booking[]>('bookings/');
     return response.data;
   }
 };
